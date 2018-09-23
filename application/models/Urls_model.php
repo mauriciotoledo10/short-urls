@@ -22,12 +22,31 @@ class Urls_model extends CI_Model{
 
     //método responsável por salvar no banco de dados as informações da URL que o usuário inseriu a retornar a URL curta.
     function Save($data){
+        //recebendo no array data['code'] o código aleatório gerado no método GenerateUniqueCode();
         $data['code'] = $this->GenerateUniqueCode();
         $this->db->insert('urls',$data);
+
+        //método capaz de retornar o id da última instrução INSERT executada
         if($this->db->insert_id()){
         return $data['code'];
         }else{
         return false;
         }
     }
+
+    //método que retornará os dados de uma URL a partir do código ssado como parâmetro, que é o código único gerado pelo método GenerateUniqueCode()
+    function Fetch($url_code){
+        $this->db->select('*')->from('urls')->where('code',$url_code)->limit(1);
+
+        $result = $this->db->get()->result();
+
+        if($result){
+            return $result[0]->address;
+        }
+        else{
+            return false;
+        }
+    }
+
+    
 }
