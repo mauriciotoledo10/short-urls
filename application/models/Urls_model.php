@@ -19,4 +19,15 @@ class Urls_model extends CI_Model{
         }while($num >= 1);
         return $code;
     }
+
+    //método responsável por salvar no banco de dados as informações da URL que o usuário inseriu a retornar a URL curta.
+    function Save($data){
+        $data['code'] = $this->GenerateUniqueCode();
+        $this->db->insert('urls',$data);
+        if($this->db->insert_id()){
+        return $data['code'];
+        }else{
+        return false;
+        }
+    }
 }
