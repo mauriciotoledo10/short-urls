@@ -48,5 +48,16 @@ class Urls_model extends CI_Model{
         }
     }
 
+    function GetAllByUser($user_id){
+        $this->db->select('*')->from('urls')->where('user_id',$user_id);
+        $result = $this->db->get()->result();
+        if($result){
+        return $result;
+        }else{
+        return false;
+        }
+    
+    }
+
     
 }
