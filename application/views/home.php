@@ -23,4 +23,4 @@
 </div>
 </div>
 </div>
-<?php $this->load->view('commons/footer')?>
+<?php $this->load->view('commons/foot')?>
