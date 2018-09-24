@@ -37,5 +37,24 @@ class Urls extends CI_Controller {
     $this->load->view('home',$data);
     }
 
+    //método responsável por redirecionar a URL curta para a URL original.
+    public function Go(){
+        if (!$this->uri->segment(1)) {
+            redirect(base_url());
+        } else {
+            $code = $this->uri->segment(1);
+            $this->load->model('Urls_model');
+            $result = $this->Urls_model->Fetch($code);
+            if ($result) {
+                redirect(prep_url($result));
+            } else {
+                $data['error'] = "URL não localizada.";
+                $data['short_url'] = null;
+                $this->load->view('home',$data);
+            }
+        }
+    
+    }
+
 
 }
