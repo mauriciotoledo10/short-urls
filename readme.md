@@ -33,7 +33,6 @@ CREATE TABLE `users` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `name` varchar(255) DEFAULT '',
 `email` varchar(255) NOT NULL DEFAULT '',
-12.2 CRIANDO A ESTRUTURA DO PROJETO E O BANCO DE DADOS 149
 `passw` varchar(255) NOT NULL DEFAULT '',
 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`id`)
