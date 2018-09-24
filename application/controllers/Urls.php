@@ -7,6 +7,7 @@ class Urls extends CI_Controller {
         parent::__construct();
         $this->load->helper('string');
         $this->load->library('form_validation');
+        $this->load->library('session');
     }
 
     //index
