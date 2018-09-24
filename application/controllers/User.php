@@ -46,4 +46,34 @@ class User extends CI_Controller {
         $this->session->unset_userdata('id');
         redirect();
     }
+
+    //método executado para cadastro de um novo usuário
+    public function Register(){
+        $this->form_validation->set_rules('name','Nome','required|min_length[3]|trim');
+        $this->form_validation->set_rules('email','Email','required|min_length[1]|valid_email|trim');
+        $this->form_validation->set_rules('passw','Senha','required|min_length[6]|trim');
+        
+        if($this->form_validation->run() == FALSE){
+            $data['error'] = validation_errors();
+        }else{
+            $dataRegister = $this->input->post();
+            $res = $this->User_model->Save($dataRegister);
+            
+            if($res){
+                $data['error'] = null;
+            }else{
+                $data['error'] = "Não foi possível criar o usuário.";
+            }
+        }
+        
+        if($data['error'])
+        $this->load->view('login',$data);
+        
+        else{
+        $this->session->set_userdata('logged',true);
+        $this->session->set_userdata('email',$res->email);
+        $this->session->set_userdata('id',$res->id);
+        redirect();
+        }
+    }
 }
