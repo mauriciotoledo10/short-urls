@@ -76,4 +76,25 @@ class User extends CI_Controller {
         redirect();
         }
     }
+    
+    //método que vai executar a mudança de senha do usuário
+    public function UpdatePassw(){
+        $data['success'] = null;
+        $data['error'] = null;
+        $this->form_validation->set_rules('passw','Senha','required|min_length[6]|trim');
+        
+        if($this->form_validation->run() == FALSE){
+            $data['error'] = validation_errors();
+        }else{
+            $data = $this->input->post();
+            $this->User_model->Update($data);
+            $data['success'] = "Senha alterada com sucesso!";
+            $data['error'] = null;
+        }
+        $data['user'] = $this->User_model->GetUser($this->session->userdata('id'));
+        
+        //carrega a view de alteração de senha
+        $this->load->view('alterar-senha',$data);
+    }
+
 }
