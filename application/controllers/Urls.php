@@ -24,6 +24,7 @@ class Urls extends CI_Controller {
         $data['user_id'] = $this->session->userdata('id');
         $res = $this->Urls_model->Save($data);
         
+        //retorna o código da URL caso ela tenha sido gravada
         if($res){
             $data['error'] = null;
             $data['short_url'] = base_url($res);
