@@ -97,4 +97,14 @@ class User extends CI_Controller {
         $this->load->view('alterar-senha',$data);
     }
 
+    //método que listará todas as URLs encurtadas pelo usuário logado.
+    public function URLs(){
+        $this->load->model('Urls_model');
+        $urls = $this->Urls_model->GetAllByUser($this->session->userdata('id'));
+        $data['urls'] = $urls;
+        $data['error'] = null;
+        $data['short_url'] = false;
+        //carregando a view de urls
+        $this->load->view('minhas-urls',$data);
+        }
 }
